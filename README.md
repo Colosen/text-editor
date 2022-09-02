@@ -11,3 +11,5 @@ Now all the files from the server (called remote or origin) is downloaded to our
 We do
 git pull
 to pull the latest from the server (remote or origin) to local
+
+We will get a merge conflict if our version is not in sync with server version, and we attempt a commit and push
