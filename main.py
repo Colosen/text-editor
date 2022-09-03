@@ -1,32 +1,35 @@
 from tkinter import *
+from tkinter.filedialog import asksaveasfile
+
 
 def saveAs():
     #creating "Save as" window
     global save_as_window
-    save_as_window = Tk()
-    width, height = 250, 100
-    save_as_window.geometry("250x100")
-    save_as_window.resizable(0, 0)
 
-    name_text_box = Text(save_as_window, height=1, width=15) # the text in which to enter the filename
-    name_text_box.place(x=width//2 - 60, y=height//2 - 5)
+    file = asksaveasfile(initialfile="Untitled.txt", defaultextension=".txt", filetypes=[("All files", "*.*"), ("Text documents", "*.txt")])
+    print("\n" , " My file  Name is" , file.name)
+    file_name = file.name
+    text_to_save = text_box.get("1.0", "end-1c")
+    print(text_to_save)
 
-    final_save_button = Button(save_as_window, text="Save", height=1, width=5)
-    final_cancel_button = Button(save_as_window, text="Cancel", height=1, width=5)
+    with open(str(file_name), 'w') as f:
+        f.write(text_to_save)
 
-    pass
 
 def save():
     # save changes made to document in question
     pass
 
-def open():
+
+def open_file():
     # open document @TODO file explorer implementation
     pass
+
 
 def close():
     save_as_window.destroy()
     win.destroy()
+
 
 # creating main window
 win = Tk()
@@ -35,8 +38,8 @@ win.minsize(900, 900)
 win.title("Text editor")
 
 # creating title text
-title_text = Text(win, height=800, width=900)
-title_text.place(x=0, y=25)
+text_box = Text(win, height=800, width=900)
+text_box.place(x=0, y=25)
 
 # creating header buttons
 save_as_button = Button(win, text="Save as", height=1, width=5, command=saveAs)
@@ -51,9 +54,11 @@ open_button.place(x=90, y=0)
 # console output
 print("Hello world!!")
 
-dialogue = int(input("Enter any input to exit:")) # close all windows if there is an input to the console
+# close all windows if there is an input to the console
+dialogue = int(input("Enter any input to exit:\n")) 
 if dialogue:
     close()
 
 win.mainloop()
 
+ 
