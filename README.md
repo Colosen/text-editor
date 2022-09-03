@@ -1,15 +1,2 @@
-# my-minesweeper
-My own minesweeper program written python
-
-How to checkout the latest version from git
-In windows prompt type bash (Assuming you have installed git along with git-bash tool)
-First step git clone <project URL>
-We got the <project URL> from the github webside in the code link
-
-Now all the files from the server (called remote or origin) is downloaded to our local file system. We can see a new project folder created with the same name.
-
-We do
-git pull
-to pull the latest from the server (remote or origin) to local
-
-We will get a merge conflict if our version is not in sync with server version, and we attempt a commit and push
+# text-editor
+This is a humble text editor program written in Python 3 with the help of the Tkinter module. It consists of a text box and 3 major functionality buttons. The "Save as" button creates a new file as per the user's choice and writes the text in the text box to the file. The "Open" button opens a file as per the user's choice and copies the text of the file onto the text box. When the user opens a file this way, the address of the file is stored. The user can then save the changes made to the file using the "Save" button which overwrites the text in the text box to the file.
