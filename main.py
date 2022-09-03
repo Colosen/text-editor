@@ -1,13 +1,15 @@
 from tkinter import *
 from tkinter.filedialog import asksaveasfile
+from tkinter.filedialog import askopenfile
 
+#initializing global variables
+current_working_file_name = ""
 
 def saveAs():
     #creating "Save as" window
-    global save_as_window
-
-    file = asksaveasfile(initialfile="Untitled.txt", defaultextension=".txt", filetypes=[("All files", "*.*"), ("Text documents", "*.txt")])
-    print("\n" , " My file  Name is" , file.name)
+    save_as_filetypes = [("All files", "*.*"), ("Text documents", "*.txt"), ("Python files", "*.py")]
+    file = asksaveasfile(initialfile="Untitled.txt", defaultextension=".txt", filetypes=save_as_filetypes)
+    print("\nMy file  Name is", file.name)
     file_name = file.name
     text_to_save = text_box.get("1.0", "end-1c")
     print(text_to_save)
@@ -16,18 +18,37 @@ def saveAs():
         f.write(text_to_save)
 
 
-def save():
+def save(file_name=current_working_file_name): # @TODO Fix default parameter file_name to take the address of current_working_file_name
+    print("File name as passed to save() function: ", current_working_file_name)
+
     # save changes made to document in question
-    pass
+    text_to_update = text_box.get("1.0", "end-1c")
+    print("Changes made to current working file before save: ", text_to_update)
+
+    with open(current_working_file_name, 'w') as f:
+        f.write(text_to_update)
 
 
 def open_file():
-    # open document @TODO file explorer implementation
-    pass
+    open_filetypes = [("All files", "*.*"), ("Text documents", "*.txt"), ("Python files", "*.py")]
+    file = askopenfile(initialdir="D:", filetypes=open_filetypes)
+
+    print("File IO wrapper: ", file)
+
+    file_name = file.name
+    print("File name as opened by user: ", file_name)
+
+    global current_working_file_name
+    current_working_file_name = file_name
+    with open(file_name, 'r') as f:
+        text = f.read()
+    
+    text_box.insert(INSERT, text)
+    
+    print(f"Text inserted into file at {file_name}:", text)
 
 
 def close():
-    save_as_window.destroy()
     win.destroy()
 
 
@@ -44,7 +65,7 @@ text_box.place(x=0, y=25)
 # creating header buttons
 save_as_button = Button(win, text="Save as", height=1, width=5, command=saveAs)
 save_button = Button(win, text="Save", height=1, width=5, command=save)
-open_button = Button(win, text="Open", height=1, width=5, command=open)
+open_button = Button(win, text="Open", height=1, width=5, command=open_file)
 
 # placing header buttons
 save_as_button.place(x=0, y=0)
@@ -52,13 +73,12 @@ save_button.place(x=45, y=0)
 open_button.place(x=90, y=0)
 
 # console output
-print("Hello world!!")
+print("Program starting!")
 
 # close all windows if there is an input to the console
-dialogue = int(input("Enter any input to exit:\n")) 
+dialogue = input("Enter any input to exit:\n")
 if dialogue:
     close()
 
 win.mainloop()
 
- 
