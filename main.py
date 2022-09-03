@@ -23,16 +23,18 @@ def saveAs():
         f.write(text_to_save)
 
 
-def save(file_name=current_working_file_name): # @TODO Fix default parameter file_name to take the address of current_working_file_name
+def save(): # @TODO Fix default parameter file_name to take the address of current_working_file_name
+    file_name = current_working_file_name
+
     print("File name as passed to save() function: ", file_name)
-    print(f"Value of current_working_file_name: {current_working_file_name}")
+    print(f"Value of global variable current_working_file_name: {current_working_file_name}")
 
     # save changes made to document in question
     text_to_update = text_box.get("1.0", "end-1c")
     print("Changes made to current working file before save: ", text_to_update)
 
-    print(f"opening {current_working_file_name} to write changes to file.")
-    with open(current_working_file_name, 'w') as f:
+    print(f"opening {file_name} to write changes to file.")
+    with open(file_name, 'w') as f:
         f.write(text_to_update)
     print("Changes saved to file.")
 
