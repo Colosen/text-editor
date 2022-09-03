@@ -23,7 +23,7 @@ def saveAs():
         f.write(text_to_save)
 
 
-def save(): # @TODO Fix default parameter file_name to take the address of current_working_file_name
+def save():
     file_name = current_working_file_name
 
     print("File name as passed to save() function: ", file_name)
